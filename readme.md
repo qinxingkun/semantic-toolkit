@@ -54,6 +54,13 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 *   `--host 0.0.0.0`: 允许外部 IP 访问。
 *   `--port 8000`: 服务监听端口。
 
+### 4. Vercel 部署 (Serverless)
+本项目已配置好 `vercel.json`，可以直接部署到 Vercel：
+
+1. 安装 Vercel CLI: `npm i -g vercel`
+2. 在项目根目录执行: `vercel`
+3. 按照提示完成部署即可。
+
 ---
 
 ## 交互式 API 文档 (API Documentation)
