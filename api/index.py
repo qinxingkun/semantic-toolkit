@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional, Any, Dict
-from database import get_db, init_db, AnalysisLog
+from .database import get_db, init_db, AnalysisLog
 import json
 
 app = FastAPI(

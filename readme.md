@@ -47,7 +47,7 @@ pip install fastapi uvicorn sqlalchemy pydantic
 运行以下命令启动 FastAPI 开发服务器：
 
 ```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uvicorn api.index:app --reload --host 0.0.0.0 --port 8000
 ```
 
 *   `--reload`: 代码修改后自动重启服务器（仅建议开发环境使用）。
@@ -78,9 +78,11 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ```text
 .
-├── main.py            # API 入口文件，定义所有路由、模型和业务逻辑
-├── database.py        # 数据库配置与模型定义
-├── semantic_toolkit.db # SQLite 数据库文件 (自动生成)
+├── api/
+│   ├── index.py       # API 入口文件 (原 main.py)
+│   └── database.py    # 数据库配置与模型定义
+├── requirements.txt   # 依赖清单
+├── vercel.json        # Vercel 部署配置
 └── readme.md          # 部署与说明文档
 ```
 
