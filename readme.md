@@ -1,76 +1,63 @@
 # 语义计算工具库 (Semantic Computing Toolkit)
 
-本项目是一个基于 **FastAPI** 和 **SQLAlchemy** 开发的科技文献语义计算工具库 API 平台。它集成了 10 个核心语义分析模块，旨在通过标准的 RESTful 接口为智能平台和知识库系统提供深度语义计算支持。
+本项目是一个专为 **科技文献深度分析** 设计的语义计算平台。基于 **FastAPI** 和 **Pydantic v2** 开发，集成了 10 个核心语义工具模块，提供了超过 **80 个** 细分功能接口。
+
+本项目采用模块化架构，旨在为学术平台、智能综述系统及科研知识库提供高性能、标准化、且带有详尽示例的 API 支持。
 
 ---
 
-## 核心功能模块 (Core Modules)
+## 核心功能模块 (10 大工具，80+ API)
 
-本项目提供以下 10 个核心语义计算接口，基础路径统一为 `/api/v1/semantic_compute/`：
+所有 API 均遵循统一路径规范：`/api/v1/semantic_compute/{工具名}/{具体功能}`。
 
-1.  **语步识别 (Move Identify)**：标注文献中的研究背景、目的、方法、结果、结论。
-2.  **自动分类 (Auto Classify)**：基于中图分类法的多类目科技文献自动分类。
-3.  **关键词识别 (Keyword Extract)**：从中英文文献中自动抽取关键短语。
-4.  **研究问题识别 (Problem Identify)**：自动识别研究问题句及其核心短语。
-5.  **引用句识别 (Citation Identify)**：识别引用句并揭示其引用情感与意图。
-6.  **概念定义识别 (Concept Define Identify)**：识别文献中的概念定义句及其被定义词。
-7.  **命名实体识别与关系抽取 (NER & Relation)**：支持通用与科研领域的实体识别及三元组提取。
-8.  **深度聚类 (Deep Cluster)**：基于句子特征的文献自动聚合。
-9.  **聚类标签生成 (Cluster Label Generate)**：为聚类结果自动生成概括性标签。
-10. **结构化自动综述 (Structured Review)**：构建“研究问题-方法-进展”三层树形结构。
+### 1. 语步识别 (Move Identify)
+标标注文献摘要或全文中的研究逻辑成分。
+- **特色接口**: `transition_analysis` (转换逻辑分析), `validate_sequence` (逻辑连贯性评分), `style_analysis` (写作风格识别)。
 
----
+### 2. 自动分类 (Auto Classify)
+基于《中图法》(CLC) 及学科门类的深度分类与标引。
+- **特色接口**: `clc_full_path` (完整路径提取), `cross_disciplinary_score` (交叉学科评分), `journal_fit` (投稿期刊匹配)。
 
-## 技术栈 (Technology Stack)
+### 3. 关键词识别 (Keyword Extract)
+从海量文献中提取核心术语及其语义关联。
+- **特色接口**: `co_occurrence` (共现分析), `hierarchy` (上下位关系提取), `novelty_detection` (新兴词汇检测)。
 
-*   **Web 框架**: FastAPI (高性能异步 Python 框架)
-*   **数据验证**: Pydantic v2 (强类型数据建模)
-*   **ORM**: SQLAlchemy (数据库对象关系映射)
-*   **数据库**: SQLite (轻量级本地数据库，用于存储 API 调用日志)
-*   **ASGI 服务器**: Uvicorn
+### 4. 研究问题识别 (Problem Identify)
+自动定位文献中的科学难题、研究空白与假设。
+- **特色接口**: `identify_core` (核心问题识别), `complexity_score` (问题价值评估), `gap_analysis` (研究空白识别)。
 
----
+### 5. 引用分析 (Citation Analysis)
+揭示引用的学术意图、情感倾向及知识流动。
+- **特色接口**: `sentiment_intensity` (情感强度分析), `density_analysis` (引用分布密度), `citation_function` (学术功能识别)。
 
-## 部署指南 (Deployment Guide)
+### 6. 概念定义识别 (Concept Definition)
+精准提取术语定义及其演变脉络。
+- **特色接口**: `ambiguity_detection` (歧义检测), `evolution_trace` (定义演变追溯), `consistency_check` (定义一致性检测)。
 
-### 1. 环境准备
-确保您的系统已安装 Python 3.8+。建议在虚拟环境中运行。
+### 7. 命名实体识别与关系抽取 (NER & Relation)
+识别科研实体并构建三元组知识。
+- **特色接口**: `event_extraction` (学术事件提取), `importance_scoring` (实体权重评估), `coref_resolution` (指代消解)。
 
-### 2. 安装依赖
-在项目根目录下执行以下命令安装必要组件：
+### 8. 深度聚类 (Deep Cluster)
+基于语义向量对文献集进行多维度自动聚合。
+- **特色接口**: `stability_score` (聚类稳定性), `recommend_k` (最佳类簇数推荐), `viz_data` (降维可视化坐标)。
 
-```bash
-pip install fastapi uvicorn sqlalchemy pydantic
-```
+### 9. 聚类标签生成 (Cluster Labeling)
+为聚类结果生成具有高度概括性的语义标签。
+- **特色接口**: `representative_sentence` (代表性句子提取), `thematic_analysis` (深层主题挖掘), `multilingual_labels` (中英对照标签)。
 
-### 3. 启动服务
-运行以下命令启动 FastAPI 开发服务器：
-
-```bash
-uvicorn api.index:app --reload --host 0.0.0.0 --port 8000
-```
-
-*   `--reload`: 代码修改后自动重启服务器（仅建议开发环境使用）。
-*   `--host 0.0.0.0`: 允许外部 IP 访问。
-*   `--port 8000`: 服务监听端口。
-
-### 4. Vercel 部署 (Serverless)
-本项目已配置好 `vercel.json`，可以直接部署到 Vercel：
-
-1. 安装 Vercel CLI: `npm i -g vercel`
-2. 在项目根目录执行: `vercel`
-3. 按照提示完成部署即可。
+### 10. 结构化自动综述 (Structured Review)
+构建“问题-方法-进展”的三层知识图谱。
+- **特色接口**: `review_tree` (结构化树形分析), `research_front` (研究前沿检测), `executive_summary` (决策级摘要)。
 
 ---
 
-## 交互式 API 文档 (API Documentation)
+## 技术架构 (Architecture)
 
-服务启动后，您可以通过浏览器访问以下地址查看完整的 API 接口规范，并进行在线测试：
-
-*   **Swagger UI (推荐)**: [http://localhost:8000/docs](http://localhost:8000/docs)
-    *   *特点：提供完整的请求/响应示例，支持一键测试接口。*
-*   **ReDoc**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
-    *   *特点：更具可读性的静态文档布局。*
+*   **框架**: FastAPI (异步、高性能)
+*   **模型**: Pydantic v2 (严谨的数据验证与自动文档生成)
+*   **结构**: 模块化路由设计，每个工具拥有独立的逻辑文件。
+*   **文档**: 深度集成了 OpenAPI 规范，每个接口均包含 **中英文双语** 的详尽输入输出示例。
 
 ---
 
@@ -79,29 +66,54 @@ uvicorn api.index:app --reload --host 0.0.0.0 --port 8000
 ```text
 .
 ├── api/
-│   ├── index.py       # API 入口文件 (原 main.py)
-│   └── database.py    # 数据库配置与模型定义
-├── requirements.txt   # 依赖清单
-├── vercel.json        # Vercel 部署配置
-└── readme.md          # 部署与说明文档
+│   ├── index.py              # 主入口，路由整合
+│   ├── database.py           # 数据库与日志配置
+│   └── routers/              # 10 大工具独立路由模块
+│       ├── common.py         # 公共数据模型
+│       ├── step_recognition.py
+│       ├── auto_classification.py
+│       └── ... (其它工具路由)
+├── requirements.txt          # 依赖清单
+├── vercel.json               # Vercel 部署配置
+└── readme.md                 # 本说明文件
 ```
+
+---
+
+## 快速开始 (Quick Start)
+
+### 本地开发
+1. **安装依赖**:
+   ```bash
+   pip install fastapi uvicorn pydantic sqlalchemy
+   ```
+2. **启动服务**:
+   ```bash
+   uvicorn api.index:app --reload --port 8888
+   ```
+3. **访问文档**:
+   访问 [http://localhost:8888/docs](http://localhost:8888/docs) 即可查看带 **完整请求/响应示例** 的 Swagger 文档。
+
+### Vercel 部署
+本项目已针对 Vercel 优化，可直接进行 Serverless 部署：
+1. `npm i -g vercel`
+2. `vercel`
 
 ---
 
 ## API 调用规范 (API Specification)
 
-*   **请求方式**: 统一使用 `POST`。
-*   **Content-Type**: `application/json`。
-*   **响应格式**:
+*   **统一前缀**: `/api/v1/semantic_compute`
+*   **响应结构**:
     ```json
     {
         "code": 200,
         "message": "success",
-        "data": { ... }
+        "data": { ... } // 具体业务数据
     }
     ```
 
 ---
 
-## 维护者 (Maintainer)
-大模型算法/开发团队
+## 联系与贡献
+如有任何功能需求或 BUG 反馈，欢迎提交 Issue。
